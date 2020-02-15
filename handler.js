@@ -26,8 +26,13 @@ app.get("/suggestion", function (request, response) {
             })
         }
         else {
-            response.status(200).json({
-                suggestions: data
+
+            let array = data; 
+            response.status(200).json(
+          
+                
+                {
+                suggestion: data[0].suggestion
             });
         };
     });
