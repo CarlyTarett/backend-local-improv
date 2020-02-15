@@ -27,12 +27,12 @@ app.get("/suggestion", function (request, response) {
         }
         else {
 
-            let array = data; 
+            let j = Math.floor(Math.random()*data.length);
             response.status(200).json(
-          
                 
                 {
-                suggestion: data[0].suggestion
+                    suggestion: j
+                // suggestion: data[j].suggestion
             });
         };
     });
