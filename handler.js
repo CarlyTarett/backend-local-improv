@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
 
 app.get("/suggestion", function (request, response) {
 
-    connection.query("SELECT * FROM Suggestions", function (err, data) {
+   connection.query("SELECT * FROM Suggestions", function (err, data) {
 
         if (err) {
             response.status(500).json({
@@ -107,7 +107,7 @@ app.post("/suggestion", function (request, response) {
 app.put("/suggestion/:id", function (request, response) {
 
     const id = request.params.id;
-
+    
     connection.query("UPDATE Suggestions set favourite = true WHERE id=?", [id], function (err, data) {
 
         if (err) {
