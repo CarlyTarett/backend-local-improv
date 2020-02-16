@@ -18,7 +18,6 @@ const connection = mysql.createConnection({
 // GET /tasks
 
 app.get("/suggestion", function (request, response) {
-
     //  console.log(request.params.id);
     console.log("in the function")
     //console.log(id);
@@ -53,13 +52,31 @@ app.get("/suggestion", function (request, response) {
 });
 
 
+app.get("/types", function (request, response) {
+
+    connection.query("SELECT * FROM Types", function (err, data) {
+
+        if (err) {
+            response.status(500).json({
+                error: err
+            })
+        }
+        else {
+            response.status(200).json(
+
+                {
+                    types: data
+                });
+        };
+    });
+});
+
+
 // POST 
 
 app.post("/suggestion", function (request, response) {
 
     const newSuggestion = request.body;
-
-    console.log("XXXXXXXXXXXXdoing A CREATE XXXXXXXXXXXxx");
     connection.query("INSERT INTO Suggestions SET ?", [newSuggestion], function (err, data) {
 
         if (err) {
@@ -76,34 +93,31 @@ app.post("/suggestion", function (request, response) {
 
 });
 
-// // PUT /developers
-// app.put("/tasks/:id", function (request, response) {
+// PUT 
+app.put("/suggestion/:id", function (request, response) {
 
-//     const updatedTask = request.body;
-//     const id = request.params.id;
+    const id = request.params.id;
 
-//     console.log("XXXXXXXXXXXXXupdateXXXXXXXXXXXXxx");
-//     console.log("id is :   ");
-//     console.log(id);
-//     console.log(updatedTask);
+    // console.log("XXXXXXXXXXXXXupdateXXXXXXXXXXXXxx");
+    // console.log("id is :   ");
+    // console.log(id);
+    // console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy");
 
-//     console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy");
+    connection.query("UPDATE Suggestions set favourite = true WHERE id=?", [id], function (err, data) {
 
-//     connection.query("UPDATE task SET ? WHERE id=?", [updatedTask, id], function (err, data) {
+        if (err) {
+            response.status(500).json({
+                error: err
+            })
+        }
+        else {
+            response.status(200).json({
+                suggestion: data
+            });
+        };
+    });
 
-//         if (err) {
-//             response.status(500).json({
-//                 error: err
-//             })
-//         }
-//         else {
-//             response.status(200).json({
-//                 developers: data
-//             });
-//         };
-//     });
-
-// });
+});
 
 // DELETE
 

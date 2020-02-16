@@ -16,13 +16,14 @@ functions:
           method: get
           path: suggestion  
           cors: true
+      - http:
           method: get
           path: types  
-          cors: true      
-      # - http:
-      #     method: put
-      #     path: suggestion/{id}
-      #     cors: true
+          cors: true
+      - http:
+          method: put
+          path: suggestion/{id}
+          cors: true
       - http:
           method: post
           path: suggestion
