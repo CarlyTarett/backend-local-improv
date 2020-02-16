@@ -19,28 +19,41 @@ const connection = mysql.createConnection({
 
 app.get("/suggestion", function (request, response) {
 
+    //  console.log(request.params.id);
+    console.log("in the function")
+    //console.log(id);
+
+    // const typeId = request.params.id;
+
+    //connection.query("SELECT * FROM Suggestions where typeId = ?",  [typeId], function (err, data) {
+    //connection.query("SELECT * FROM Suggestions where typeId = 2", function (err, data) {
     connection.query("SELECT * FROM Suggestions", function (err, data) {
+
         if (err) {
+            console.log("in the error with an error")
+
             response.status(500).json({
                 error: err
             })
         }
         else {
+            console.log("done the sql ALLLLL good")
 
-            let j = Math.floor(Math.random()*data.length);
+            let j = Math.floor(Math.random() * data.length);
             response.status(200).json(
-                
+
                 {
-                    suggestion: j
-                // suggestion: data[j].suggestion
-            });
+                    // suggestion: j
+                    //  suggestion: data[j].suggestion
+                    suggestion: data
+                });
         };
     });
 
 });
 
 
-// POST /developers
+// POST 
 
 app.post("/suggestion", function (request, response) {
 
@@ -63,55 +76,42 @@ app.post("/suggestion", function (request, response) {
 
 });
 
-// PUT /developers
-app.put("/tasks/:id", function (request, response) {
+// // PUT /developers
+// app.put("/tasks/:id", function (request, response) {
 
-    const updatedTask = request.body;
+//     const updatedTask = request.body;
+//     const id = request.params.id;
+
+//     console.log("XXXXXXXXXXXXXupdateXXXXXXXXXXXXxx");
+//     console.log("id is :   ");
+//     console.log(id);
+//     console.log(updatedTask);
+
+//     console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy");
+
+//     connection.query("UPDATE task SET ? WHERE id=?", [updatedTask, id], function (err, data) {
+
+//         if (err) {
+//             response.status(500).json({
+//                 error: err
+//             })
+//         }
+//         else {
+//             response.status(200).json({
+//                 developers: data
+//             });
+//         };
+//     });
+
+// });
+
+// DELETE
+
+app.delete("/suggestion/:id", function (request, response) {
+
     const id = request.params.id;
 
-    console.log("XXXXXXXXXXXXXupdateXXXXXXXXXXXXxx");
-    console.log("id is :   ");
-    console.log(id);
-    console.log(updatedTask);
-
-    console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy");
-
-    connection.query("UPDATE task SET ? WHERE id=?", [updatedTask, id], function (err, data) {
-
-        if (err) {
-            response.status(500).json({
-                error: err
-            })
-        }
-        else {
-            response.status(200).json({
-                developers: data
-            });
-        };
-    });
-
-});
-
-// DELETE /developers
-
-app.delete("/tasks/:id", function (request, response) {
-
-    const id = request.params.id;
-
-
-    console.log("XXXXXXXXXXXXXdeleteXXXXXXXXXXXxx");
-    console.log("id is :   ");
-    console.log(id);
-
-
-    console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy");
-
-
-    //connection.query("Delete FROM task WHERE id = 36", function(err, data){
-
-    connection.query("Delete FROM task WHERE id = ?", [id], function (err, data) {
-        //connection.query("INSERT INTO comments (comment) values ( ?)", [id], function(err, data){
-
+    connection.query("Delete FROM Suggestions WHERE id = ?", [id], function (err, data) {
         if (err) {
             response.status(500).json({
                 error: err
@@ -120,9 +120,7 @@ app.delete("/tasks/:id", function (request, response) {
         else {
             response.sendStatus(200);
         };
-
     });
-
 });
 
 module.exports.app = serverlessHttp(app);
