@@ -36,7 +36,6 @@ app.get("/suggestion", function (request, response) {
             })
         }
         else {
-            console.log("done the sql ALLLLL good")
 
             let j = Math.floor(Math.random() * data.length);
             response.status(200).json(
@@ -44,6 +43,29 @@ app.get("/suggestion", function (request, response) {
                 {
                     // suggestion: j
                     //  suggestion: data[j].suggestion
+                    suggestion: data
+                });
+        };
+    });
+
+});
+
+app.get("/suggestion/:id", function (request, response) {
+
+    const id = request.params.id;
+
+    connection.query("Select * from Suggestions where typeId = ?", [id], function (err, data) {
+        if (err) {
+            response.status(500).json({
+                error: err
+            })
+        }
+        else {
+
+            let j = Math.floor(Math.random() * data.length);
+            response.status(200).json(
+
+                {
                     suggestion: data
                 });
         };

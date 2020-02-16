@@ -18,6 +18,10 @@ functions:
           cors: true
       - http:
           method: get
+          path: suggestion/{id}  
+          cors: true
+      - http:
+          method: get
           path: types  
           cors: true
       - http:
