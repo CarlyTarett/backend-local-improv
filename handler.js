@@ -18,19 +18,10 @@ const connection = mysql.createConnection({
 // GET /tasks
 
 app.get("/suggestion", function (request, response) {
-    //  console.log(request.params.id);
-    console.log("in the function")
-    //console.log(id);
 
-    // const typeId = request.params.id;
-
-    //connection.query("SELECT * FROM Suggestions where typeId = ?",  [typeId], function (err, data) {
-    //connection.query("SELECT * FROM Suggestions where typeId = 2", function (err, data) {
     connection.query("SELECT * FROM Suggestions", function (err, data) {
 
         if (err) {
-            console.log("in the error with an error")
-
             response.status(500).json({
                 error: err
             })
@@ -61,10 +52,8 @@ app.get("/suggestion/:id", function (request, response) {
             })
         }
         else {
-
             let j = Math.floor(Math.random() * data.length);
             response.status(200).json(
-
                 {
                     suggestion: data
                 });
@@ -85,7 +74,6 @@ app.get("/types", function (request, response) {
         }
         else {
             response.status(200).json(
-
                 {
                     types: data
                 });
@@ -119,11 +107,6 @@ app.post("/suggestion", function (request, response) {
 app.put("/suggestion/:id", function (request, response) {
 
     const id = request.params.id;
-
-    // console.log("XXXXXXXXXXXXXupdateXXXXXXXXXXXXxx");
-    // console.log("id is :   ");
-    // console.log(id);
-    // console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy");
 
     connection.query("UPDATE Suggestions set favourite = true WHERE id=?", [id], function (err, data) {
 
