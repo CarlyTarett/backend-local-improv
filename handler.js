@@ -27,11 +27,14 @@ app.get("/suggestion", function (request, response) {
             })
         }
         else {
-           // let randomPostion = Math.floor(Math.random() * data.length);
-            response.status(200).json(
+           let randomPostion = Math.floor(Math.random() * data.length);
+           let randomSuggestion = data[randomPostion];
+           response.status(200).json(
                 {
-                   // suggestion: data[randomPosition]
-                   suggestion : data
+                   //suggestion: data[randomPosition]
+                  // suggestion : data[0]
+                  // suggestion : data
+                  suggestion : randomSuggestion
             
                 });
         };
