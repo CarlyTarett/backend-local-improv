@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
 
 app.get("/suggestion", function (request, response) {
 
-   connection.query("SELECT * FROM Suggestions", function (err, data) {
+    connection.query("SELECT * FROM Suggestions", function (err, data) {
 
         if (err) {
             response.status(500).json({
@@ -27,14 +27,12 @@ app.get("/suggestion", function (request, response) {
             })
         }
         else {
-
-            let j = Math.floor(Math.random() * data.length);
+           // let randomPostion = Math.floor(Math.random() * data.length);
             response.status(200).json(
-
                 {
-                    // suggestion: j
-                    //  suggestion: data[j].suggestion
-                    suggestion: data
+                   // suggestion: data[randomPosition]
+                   suggestion : data
+            
                 });
         };
     });
@@ -52,14 +50,14 @@ app.get("/suggestion/:id", function (request, response) {
             })
         }
         else {
-            let j = Math.floor(Math.random() * data.length);
+           // let randomPostion = Math.floor(Math.random() * data.length);
             response.status(200).json(
                 {
-                    suggestion: data
+                    //suggestion: data[randomPosition]
+                    suggestion : data
                 });
         };
     });
-
 });
 
 
@@ -107,7 +105,7 @@ app.post("/suggestion", function (request, response) {
 app.put("/suggestion/:id", function (request, response) {
 
     const id = request.params.id;
-    
+
     connection.query("UPDATE Suggestions set favourite = true WHERE id=?", [id], function (err, data) {
 
         if (err) {

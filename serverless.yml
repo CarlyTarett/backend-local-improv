@@ -1,11 +1,11 @@
-service: developers-application-backend
+service: frontend-local-improv
 provider:
   name: aws
   region: eu-west-1
   runtime: nodejs12.x
 
 functions:
-  developers:
+  suggestion:
     handler: handler.app
     environment:
       DB_HOST: ${opt:DB_HOST}
