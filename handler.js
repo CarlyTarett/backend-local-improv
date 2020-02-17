@@ -17,6 +17,17 @@ const connection = mysql.createConnection({
 
 // GET /tasks
 
+function getRandom(data){
+
+    let randomPostion = Math.floor(Math.random() * data.length);
+    let randomSuggestion = data[randomPostion];
+    response.status(200).json(
+         {
+             suggestion : randomSuggestion         
+         });
+
+}
+
 app.get("/suggestion", function (request, response) {
 
     connection.query("SELECT * FROM Suggestions", function (err, data) {
@@ -27,15 +38,14 @@ app.get("/suggestion", function (request, response) {
             })
         }
         else {
+
+       //     getRandom(data);
            let randomPostion = Math.floor(Math.random() * data.length);
            let randomSuggestion = data[randomPostion];
            response.status(200).json(
                 {
-                   //suggestion: data[randomPosition]
-                  // suggestion : data[0]
-                  // suggestion : data
-                  suggestion : randomSuggestion
-            
+                    suggestion : randomSuggestion 
+                    //suggestion: data[randomPosition] - this got an internal server error        
                 });
         };
     });
@@ -53,12 +63,12 @@ app.get("/suggestion/:id", function (request, response) {
             })
         }
         else {
-           // let randomPostion = Math.floor(Math.random() * data.length);
+            let randomPostion = Math.floor(Math.random() * data.length);
+            let randomSuggestion = data[randomPostion];
             response.status(200).json(
-                {
-                    //suggestion: data[randomPosition]
-                    suggestion : data
-                });
+                 {
+                     suggestion : randomSuggestion         
+                 });
         };
     });
 });
